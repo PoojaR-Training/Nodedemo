@@ -16,6 +16,11 @@ async function postLike(req, res) {
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
+
+    const likeAlready = await Like.findOne({ post: post._id, user: userId });
+    if (likeAlready) {
+      return res.status(400).json({ error: "User already liked this post" });
+    }
     const newLike = new Like({
       post: post._id,
       user: userId,
