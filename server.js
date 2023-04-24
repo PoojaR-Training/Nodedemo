@@ -1,9 +1,8 @@
 const http = require("http");
 const express = require("express");
-const userController = require("./controller/user-controller");
-const postController = require("./controller/post-controller");
-const topicController = require("./controller/topic-controller");
-const commentController = require("./controller/comment-controller");
+const userRouter = require("./router/user_router")
+const topicRouter = require("./router/topic_router")
+const postRouter = require("./router/post_router")
 const authToken = require("./middleware/auth");
 const app = express();
 const dotenv = require("dotenv");
@@ -15,24 +14,11 @@ const connectDB = require("./database/connection");
 connectDB();
 app.use(express.json());
 
-app.post("/userregister", userController.userRegister);
-app.post("/userlogin", userController.userLogin);
+app.post("/users", userRouter);
 
-app.post("/topic", authToken.checkToken, topicController.topicCreate);
-app.get("/gettopic", authToken.checkToken, topicController.topicAllGet);
+app.post("/topic", authToken.checkToken, topicRouter);
 
-app.post("/post", authToken.checkToken, postController.postCreate);
-app.get("/getpost", authToken.checkToken, postController.postAllGet);
-app.put("/postupdate/:id", authToken.checkToken, postController.postUpdate);
-app.delete("/postdelete/:id", authToken.checkToken, postController.postDelete);
-app.get("/postmostrecent", authToken.checkToken, postController.getMostRecentPost);
-app.get(
-  "/getpostbytopic/:title",
-  authToken.checkToken,
-  postController.postByTopicGet
-);
-
-app.post("/comment/:id", authToken.checkToken, commentController.postComment);
+app.post("/post", authToken.checkToken, postRouter);
 
 const server = http.createServer(app);
 server.listen(port);
