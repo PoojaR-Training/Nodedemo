@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-var userId;
+
 function checkToken(req, res, next) {
   const token = req.headers["authorization"];
   if (token) {
@@ -7,7 +7,7 @@ function checkToken(req, res, next) {
       if (err) {
         return res.status(401).json({ message: "Token is not valid" });
       } else {
-        userId = req.id = decoded.id;
+        req.id = decoded.id;
         next();
       }
     });

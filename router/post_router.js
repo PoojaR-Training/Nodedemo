@@ -13,6 +13,7 @@ router.get("/postmostrecent", postController.getMostRecentPost);
 router.get("/getpostbytopic/:title", postController.postByTopicGet);
 
 router.post("/comment/:id", commentController.postComment);
-router.post("/likes/:id", likesController.postLike)
-router.post("/dislikes/:id", dislikesController.postDisike)
+router.post("/likes/:id", likesController.postLike);
+router.post("/dislikes/:id", dislikesController.postDisike);
+router.get("/mostlikePost", likesController.getMostLikePost);
 module.exports = router;

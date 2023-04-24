@@ -39,6 +39,22 @@ async function postLike(req, res) {
   }
 }
 
+async function getMostLikePost(req, res) {
+  try {
+    const mostLike = await Post.find({}).sort({ likes: -1 }).limit(1);
+    res.status(200).json({
+      status: "success",
+      mostLike,
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "fail",
+      message: "something went wrong ",
+    });
+  }
+}
+
 module.exports = {
   postLike,
+  getMostLikePost,
 };
