@@ -3,6 +3,10 @@ const Topic = require("../model/model_topic");
 //Topic create
 async function topicCreate(req, res) {
   try {
+    const existingTopic = await Topic.findOne({ name: req.body.name });
+    if (existingTopic) {
+      return res.status(409).json({ message: "Topic already exists" });
+    }
     const topic = await Topic.create(req.body);
     res.status(200).json(topic);
   } catch (error) {
