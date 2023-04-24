@@ -11,16 +11,19 @@ async function postLike(req, res) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
     const id = req.params.id;
-    const post = await Post.findById(id);
 
+    const post = await Post.findById(id);
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
 
-    const likeAlready = await Like.findOne({ post: post._id, user: userId });
-    if (likeAlready) {
-      return res.status(400).json({ error: "User already liked this post" });
+    const like = await Like.findOne({ post: id, user: userId });
+    console.log(like._id)
+    if (like) {
+      await Like.findOneAndDelete(like._id);
+      await Post.findByIdAndUpdate(post._id, { $inc: { likes: -1 } });
     }
+
     const newLike = new Like({
       post: post._id,
       user: userId,

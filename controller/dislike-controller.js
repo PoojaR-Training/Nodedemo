@@ -14,10 +14,11 @@ async function postDisike(req, res) {
     const id = req.params.id;
     const post = await Post.findById(id);
     const like = await Like.findOne({ post: post._id, user: userId });
+
     if (like) {
+      await Like.findOneAndDelete(like)
       await Post.findByIdAndUpdate(post._id, { $inc: { likes: -1 } });
     }
-
 
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
@@ -29,7 +30,7 @@ async function postDisike(req, res) {
     await newDislike.save();
 
     await Post.findByIdAndUpdate(post._id, { $inc: { dislikes: 1 } });
-    
+
     res.status(201).json({
       status: "success",
       msg: "DisLike successfully added",
