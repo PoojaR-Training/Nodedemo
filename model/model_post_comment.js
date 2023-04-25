@@ -12,8 +12,12 @@ const Schema = new mongoose.Schema(
     },
     user: {
       type: mongoose.Schema.ObjectId,
-      ref: "userregister",
+      ref: "user",
     },
+    username :{
+      type: mongoose.Schema.ObjectId,
+      ref: "user",
+    }
   },
   {
     timestamps: true,
