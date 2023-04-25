@@ -64,7 +64,11 @@ async function postDelete(req, res) {
 async function postAllGet(req, res) {
   try {
     const post = await Post.find({});
-    res.status(200).json(post);
+    if (!post) {
+      return res.status(404).json({ message: `cannot find any post` });
+    } else {
+      res.status(200).json(post);
+    }
   } catch (err) {
     res.status(500).json({
       status: "fail",
@@ -78,7 +82,13 @@ async function postByTopicGet(req, res) {
   try {
     const { title } = req.params;
     const post = await Post.find({ title: title });
-    res.status(200).json(post);
+    if (!post) {
+      return res
+        .status(400)
+        .json({ message: `cannot find any post with given topic` });
+    } else {
+      res.status(200).json(post);
+    }
   } catch (err) {
     res.status(500).json({
       status: "fail",

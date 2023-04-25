@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
 
-async function postComment(req, res, next) {
+async function postComment(req, res,) {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader.split(",")[0];
