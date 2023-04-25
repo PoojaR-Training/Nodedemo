@@ -21,7 +21,7 @@ async function postComment(req, res, next) {
     const addComment = new Comment({
       comment: req.body.comment,
       post: post._id,
-      username: username,
+      user: username,
     });
     const createComment = await addComment.save();
     if (createComment) {

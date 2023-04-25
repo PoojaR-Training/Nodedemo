@@ -21,12 +21,12 @@ const likeDislike = async (req, res) => {
     }
     const existinglike = await Like.findOne({
       post: post._id,
-      username: username,
+      user: username,
     });
 
     const existingdislike = await DisLike.findOne({
       post: post._id,
-      username: username,
+      user: username,
     });
 
     if (action === "like") {
@@ -35,12 +35,12 @@ const likeDislike = async (req, res) => {
       }
       await DisLike.findOneAndDelete({
         post: post._id,
-        username: username,
+        user: username,
       });
 
       const addLike = new Like({
         post: post._id,
-        username: username,
+        user: username,
       });
       const createLike = await addLike.save();
 
@@ -57,11 +57,11 @@ const likeDislike = async (req, res) => {
       }
       await Like.findOneAndDelete({
         post: post._id,
-        username: username,
+        user: username,
       });
       const addDislike = new DisLike({
         post: post._id,
-        username: username,
+        user: username,
       });
       const createDislike = await addDislike.save();
       if (createDislike) {

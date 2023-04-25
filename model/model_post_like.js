@@ -10,10 +10,6 @@ const Schema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "user",
     },
-    username: {
-      type: mongoose.Schema.ObjectId,
-      ref: "user",
-    },
   },
   {
     timestamps: true,

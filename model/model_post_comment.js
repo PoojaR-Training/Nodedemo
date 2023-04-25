@@ -10,11 +10,7 @@ const Schema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "post",
     },
-    user: {
-      type: mongoose.Schema.ObjectId,
-      ref: "user",
-    },
-    username :{
+    user:{
       type: mongoose.Schema.ObjectId,
       ref: "user",
     }
