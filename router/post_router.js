@@ -1,7 +1,6 @@
 const postController = require("../controller/post-controller");
 const commentController = require("../controller/comment-controller");
-const likesController = require("../controller/like-controller");
-const dislikesController = require("../controller/dislike-controller");
+const likeController = require("../controller/reaction-controller");
 const express = require("express");
 const router = express.Router();
 
@@ -13,7 +12,6 @@ router.get("/postmostrecent", postController.getMostRecentPost);
 router.get("/getpostbytopic/:title", postController.postByTopicGet);
 
 router.post("/comment/:id", commentController.postComment);
-router.post("/likes/:id", likesController.postLike);
-router.post("/dislikes/:id", dislikesController.postDisike);
-router.get("/mostlikePost", likesController.getMostLikePost);
+router.post("/likedislike/:id", likeController.likeDislike);
+router.get("/mostlikepost", likeController.mostLikePost);
 module.exports = router;
