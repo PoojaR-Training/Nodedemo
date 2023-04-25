@@ -27,7 +27,7 @@ const likeDislike = async (req, res) => {
       post: post._id,
       user: userId,
     });
-
+  
     if (action === "like") {
       if (existinglike) {
         return res.status(404).json({ error: "Already like this post " });
